@@ -1,0 +1,7 @@
+mkdir/cd
+python3 -m venv venv
+source venv/bin/activate
+install django, psycopg2
+venv/bin/django-admin startproject notas
+git init
+settings.py DATABASES
