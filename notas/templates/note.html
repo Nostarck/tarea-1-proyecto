@@ -1,9 +1,0 @@
-{% extends "loggedinbase.html" %}
-{% block content %}
-<h1>{{ note.title }}</h1>
-<div style="border: 1px solid black; padding: 0px 10px;">{{ note.note | safe }}</div>
-<br/>
-<a href="{{request.path}}/edit">Edit</a>
-<br/>
-<a href="{{request.path}}/delete">Delete</a>
-{% endblock %}
