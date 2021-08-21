@@ -21,3 +21,8 @@ class RegisterView(View):
         if form.is_valid():
             User.objects.create_user(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             return HttpResponseRedirect('/')
+
+class HomeView(View):
+    def get(self, request):
+        notes  = Note.objects.filter(user=request.user).values('title', 'id').order_by('-modified_time')
+        return render(request, 'home.html', {'notes':notes})
