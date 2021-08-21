@@ -31,3 +31,14 @@ class RegisterView(View):
         notes  = Note.objects.filter(user=request.user).values('title', 'id').order_by('-modified_time')
         return render(request, 'home.html', {'notes':notes})
 
+ class NoteView(View):
+    def get(self, request, note_id):
+        try:
+            note = Note.objects.get(id=note_id, user=request.user)
+        except Note.DoesNotExist:
+            return HttpResponse(status=404)
+        note = {
+            'title': note.title,
+            'note': markdown(note.note),
+        }
+        return render(request, 'note.html', {'note':note})
