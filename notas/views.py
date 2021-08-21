@@ -25,4 +25,9 @@ class RegisterView(View):
     def get(self, request):
         form = CredentialsForm()
         return render(request, "register.html", {'form':form})
-    
+ 
+ class HomeView(View):
+    def get(self, request):
+        notes  = Note.objects.filter(user=request.user).values('title', 'id').order_by('-modified_time')
+        return render(request, 'home.html', {'notes':notes})
+
