@@ -14,3 +14,14 @@ class CredentialsForm(forms.Form):
 class NoteForm(forms.Form):
     title = forms.CharField(label='Note title', max_length=100)
     note = forms.CharField(label='Note content', widget=forms.Textarea)
+    
+ class RegisterView(View):
+    def post(self, request):
+        form = CredentialsForm(request.POST)
+        if form.is_valid():
+            User.objects.create_user(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            return HttpResponseRedirect('/')
+
+    def get(self, request):
+        form = CredentialsForm()
+        return render(request, "register.html", {'form':form})
